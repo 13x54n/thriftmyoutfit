@@ -171,7 +171,7 @@ export default function Navbar() {
           <div className="cursor-pointer" onClick={() => setOpen(true)}>
             <i className="ri-shopping-cart-line"></i>
           </div>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a onClick={() => navigate("/user/login")} className="cursor-pointer text-sm font-semibold leading-6 text-gray-900">
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
