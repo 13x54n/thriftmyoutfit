@@ -3,7 +3,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DesktopLayout from "../layouts/DesktopLayout";
 import Home from "../pages/Home";
 import ProductOverview from "../pages/Products/ProductOverview";
-import ShoppingCart from "../pages/Products/Cart";
+import Login from "../pages/Authentication/Login";
+import UserRegistration from "../pages/Authentication/UserRegistration";
+import UserAccountRecovery from "../pages/Authentication/UserAccountRecovery";
 
 export default function Router() {
   const router = createBrowserRouter([
@@ -24,10 +26,26 @@ export default function Router() {
       ),
     },
     {
-      path: "/cart",
+      path: "/user/login",
       element: (
         <DesktopLayout>
-          <ShoppingCart />
+          <Login />
+        </DesktopLayout>
+      ),
+    },
+    {
+      path: "/user/register",
+      element: (
+        <DesktopLayout>
+          <UserRegistration />
+        </DesktopLayout>
+      ),
+    },
+    {
+      path: "/user/recovery",
+      element: (
+        <DesktopLayout>
+          <UserAccountRecovery />
         </DesktopLayout>
       ),
     },

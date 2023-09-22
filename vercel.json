@@ -13,8 +13,15 @@
             "destination": "/product"
         },
         {
-            "source": "/cart",
-            "destination": "/cart"
+            "source": "/user/login",
+            "destination": "/user/login"
+        },
+        {
+            "source": "/user/register",
+            "destination": "/user/register"
+        },{
+            "source": "/user/recovery",
+            "destination": "/user/recovery"
         }
     ]
 }
