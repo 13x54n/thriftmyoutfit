@@ -21,9 +21,9 @@ const ProductProvider = ({ children }) => {
 
     const fetchProducts = useCallback(() => {
         const url = `${import.meta.env.VITE_APP_SERVER_API}/api/v1/products`
-        console.log(url)
+        
         if (worker) {
-            worker.postMessage({ url: `${import.meta.env.VITE_APP_SERVER_API}/api/v1/products` });
+            worker.postMessage({ url });
         }
     }, [worker]);
 
