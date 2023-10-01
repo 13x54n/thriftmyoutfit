@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import Cart from "../Shop/Cart";
 import { auth } from "../../../firebase";
 import { userSignOut } from "../../utils/authentication";
+import { hasUserDismissedPrompt, showInstallPrompt } from "../../../public/pwa";
 
 const products = [
   {
@@ -70,14 +71,14 @@ export default function Navbar() {
   const handleSignout = () => {
     userSignOut();
     navigate("/");
-    setUser(null)
+    setUser(null);
   };
 
   const handleUserLogin = () => {
     setLoading(true);
 
     setLoading(false);
-  }
+  };
   React.useEffect(() => {
     setUser(auth?.currentUser);
   }, []);
@@ -199,8 +200,14 @@ export default function Navbar() {
             </a>
           ) : (
             <div className="flex gap-4 items-center">
-            <img className="w-7 h-7 object-cover" src={user?.photoURL} alt="" />
-            <p className="text-sm font-semibold leading-6 text-gray-900">{user?.displayName}</p>
+              <img
+                className="w-7 h-7 object-cover"
+                src={user?.photoURL}
+                alt=""
+              />
+              <p className="text-sm font-semibold leading-6 text-gray-900">
+                {user?.displayName}
+              </p>
               <a
                 onClick={() => handleSignout()}
                 className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
@@ -288,6 +295,18 @@ export default function Navbar() {
                 </a>
               </div>
               <div className="py-6">
+                <div>
+                  {!hasUserDismissedPrompt() && (
+                    <button onClick={showInstallPrompt}>Install App</button>
+                  )}
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem("pwaInstallPromptDismissed");
+                    }}
+                  >
+                    Reset Install Preference
+                  </button>
+                </div>
                 <a
                   href="#"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

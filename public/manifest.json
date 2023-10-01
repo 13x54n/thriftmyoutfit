@@ -1,0 +1,27 @@
+{
+  "name": "ThriftMyOutfit",
+  "short_name": "TMO",
+  "description": "ThriftMyOutfit is a modern lifestyle.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "https://ik.imagekit.io/13x54r/ThrifyMyOutfit/tr:w-192,h-192/White%20Retro%20Smile%20Clothing%20Company%20Logo.png?updatedAt=1694628876023",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://ik.imagekit.io/13x54r/ThrifyMyOutfit/tr:w-512,h-512/White%20Retro%20Smile%20Clothing%20Company%20Logo.png?updatedAt=1694628876023",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "https://ik.imagekit.io/13x54r/ThrifyMyOutfit/tr:w-192,h-192/White%20Retro%20Smile%20Clothing%20Company%20Logo.png?updatedAt=1694628876023",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
