@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import {
   ArrowPathIcon,
@@ -16,6 +16,8 @@ import {
 } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
 import Cart from "../Shop/Cart";
+import { auth } from "../../../firebase";
+import { userSignOut } from "../../utils/authentication";
 
 const products = [
   {
@@ -62,6 +64,23 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+
+  const handleSignout = () => {
+    userSignOut();
+    navigate("/");
+    setUser(null)
+  };
+
+  const handleUserLogin = () => {
+    setLoading(true);
+
+    setLoading(false);
+  }
+  React.useEffect(() => {
+    setUser(auth?.currentUser);
+  }, []);
 
   return (
     <header className="bg-white">
@@ -171,9 +190,25 @@ export default function Navbar() {
           <div className="cursor-pointer" onClick={() => setOpen(true)}>
             <i className="ri-shopping-cart-line"></i>
           </div>
-          <a onClick={() => navigate("/user/login")} className="cursor-pointer text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          {!user ? (
+            <a
+              onClick={() => navigate("/user/login")}
+              className="cursor-pointer text-sm font-semibold leading-6 text-gray-900"
+            >
+              Log in <span aria-hidden="true">&rarr;</span>
+            </a>
+          ) : (
+            <div className="flex gap-4 items-center">
+            <img className="w-7 h-7 object-cover" src={user?.photoURL} alt="" />
+            <p className="text-sm font-semibold leading-6 text-gray-900">{user?.displayName}</p>
+              <a
+                onClick={() => handleSignout()}
+                className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
+              >
+                Logout
+              </a>
+            </div>
+          )}
         </div>
       </nav>
       <Dialog
