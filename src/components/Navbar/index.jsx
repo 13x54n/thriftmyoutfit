@@ -61,6 +61,10 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+function isiPhone() {
+  return /iPhone/i.test(navigator.userAgent);
+}
+
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -228,11 +232,11 @@ export default function Navbar() {
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+              <span className="sr-only">ThriftMyOutfit</span>
               <img
                 className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
+                src="https://ik.imagekit.io/13x54r/ThrifyMyOutfit/White%20Retro%20Smile%20Clothing%20Company%20Logo.png?updatedAt=1694628876023"
+                alt="ThriftMyOutfit Logo"
               />
             </a>
             <button
@@ -295,24 +299,53 @@ export default function Navbar() {
                 </a>
               </div>
               <div className="py-6">
-                <div>
-                  {!hasUserDismissedPrompt() && (
-                    <button onClick={showInstallPrompt}>Install App</button>
-                  )}
-                  <button
+                {!isiPhone() && (
+                  <div>
+                    {!hasUserDismissedPrompt() && (
+                      <button onClick={showInstallPrompt}>Install App</button>
+                    )}
+                    <br />
+                    <button
+                      onClick={() => {
+                        localStorage.removeItem("pwaInstallPromptDismissed");
+                      }}
+                    >
+                      Reset Install Preference
+                    </button>
+                  </div>
+                )}
+
+                {!user ? (
+                  <a
                     onClick={() => {
-                      localStorage.removeItem("pwaInstallPromptDismissed");
+                      navigate("/user/login");
+                      setMobileMenuOpen(false);
                     }}
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    Reset Install Preference
-                  </button>
-                </div>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
+                    Log in
+                  </a>
+                ) : (
+                  <div className="flex gap-4 items-center">
+                    <img
+                      className="w-7 h-7 object-cover"
+                      src={user?.photoURL}
+                      alt=""
+                    />
+                    <p className="text-sm font-semibold leading-6 text-gray-900">
+                      {user?.displayName}
+                    </p>
+                    <a
+                      onClick={() => {
+                        handleSignout();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
+                    >
+                      Logout
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>
